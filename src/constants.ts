@@ -62,7 +62,7 @@ export const GALLERY_PHOTOS: PhotoData[] = [
 export const MEMORY_LANE_PHOTOS: PhotoData[] = [
   { url: "/images/EarlyDays.jpeg", caption: "Early Days", message: "Where it all began... double the trouble!" },
   { url: "/images/SchoolShenanigans.jpeg", caption: "School Shenanigans", message: "Matching outfits and mischievous grins." },
-  { url: "/images/awkwardPhase.jpeg", caption: "Awkward Phase", message: "We don't talk about this haircut..." },
+  { url: "/images/awkwardPhase.jpeg", caption: "Awkward Phase", message: "We don't talk about this hair-style..." },
   { url: "/images/CaughtInTheAct.jpeg", caption: "Caught in the Act", message: "When you try to look serious but fail." },
   { url: "/images/TwinTelepathy.jpeg", caption: "Twin Telepathy", message: "Thinking the same thing at the same time." },
   { url: "/images/UnstoppableDuo.jpeg", caption: "Unstoppable Duo", message: "Through thick and thin, always together." }
