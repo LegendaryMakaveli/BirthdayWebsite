@@ -3,12 +3,12 @@ import type { SisterProfile, PhotoData } from './types';
 
 // CUSTOMIZE THESE VALUES
 export const SISTER_ONE: SisterProfile = {
-  name: "Taiwo",
+  name: "Georgina",
   theme: 'pink'
 };
 
 export const SISTER_TWO: SisterProfile = {
-  name: "Kehinde",
+  name: "Josephine",
   theme: 'yellow'
 };
 
