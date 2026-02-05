@@ -1,0 +1,8 @@
+
+{
+  "name": "Twin Sisters Birthday Celebration",
+  "description": "An artistic, vibrant, and emotional birthday celebration landing page for twin sisters, featuring a countdown timer, photo gallery, and dreamy animations.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
