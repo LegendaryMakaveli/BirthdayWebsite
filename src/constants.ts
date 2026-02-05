@@ -4,12 +4,12 @@ import type { SisterProfile, PhotoData } from './types';
 // CUSTOMIZE THESE VALUES
 export const SISTER_ONE: SisterProfile = {
   name: "Georgina",
-  theme: 'pink'
+  theme: 'yellow'
 };
 
 export const SISTER_TWO: SisterProfile = {
   name: "Josephine",
-  theme: 'yellow'
+  theme: 'pink'
 };
 
 /**
@@ -17,7 +17,7 @@ export const SISTER_TWO: SisterProfile = {
  * Format: Year-Month-DayTHour:Minute:Second
  * Note: Months are 1-12 in string format, but JS Date constructor is flexible.
  */
-export const BIRTHDAY_DATE = new Date("2026-02-09T00:00:00");
+export const BIRTHDAY_DATE = new Date("2025-02-09T00:00:00");
 
 export const BIRTHDAY_MESSAGE = `
   To our dearest Georgina and Josephine, on this sacred and beautiful day, we celebrate the divine miracle of your lives. 
@@ -91,12 +91,48 @@ export const TRIVIA_QUESTIONS: import('./types').TriviaQuestion[] = [
     id: 4,
     question: "Who is more likely to be late?",
     options: ["Taiwo", "Kehinde", "African Time Affects Both"],
-    correctAnswer: "Taiwo"
+    correctAnswer: "Kehinde"
   },
   {
     id: 5,
     question: "What makes them inseparable?",
     options: ["Shared DNA", "Shared Secrets", "Unconditional Love (and maybe DNA)"],
     correctAnswer: "Unconditional Love (and maybe DNA)"
-  }
+  },
+  {
+    id: 6,
+    question: "Who is the best at cooking?",
+    options: ["Taiwo", "Kehinde", "Both are good at cooking"],
+    correctAnswer: "Kehinde"
+  },
+  {
+    id: 7,
+    question: "Who is best at dancing?",
+    options: ["Kehinde", "Taiwo", "Both are good dancers"],
+    correctAnswer: "Taiwo"
+  },
+  {
+    id: 8,
+    question: "Who is the best at singing?",
+    options: ["Kehinde", "Taiwo", "Both are good singers"],
+    correctAnswer: "Taiwo"
+  },
+  {
+    id: 9,
+    question: "who is more likely to be quiet?",
+    options: ["Kehinde", "Taiwo", "Both are quiet"],
+    correctAnswer: "Kehinde"
+  },
+  {
+    id: 10,
+    question: "What is Taiwo's favorite color?",
+    options: ["Red", "Blue", "Pink"],
+    correctAnswer: "Pink"
+  },
+  {
+    id: 11,
+    question: "What is Kehinde's favorite color?",
+    options: ["Red", "Yellow", "Pink"],
+    correctAnswer: "Yellow"
+  },
 ];

@@ -129,11 +129,11 @@ const Celebration: React.FC<CelebrationProps> = ({ sister1, sister2, message, ph
                 return paragraphs.map((paragraph, i) => {
                   const words = paragraph.trim().split(" ");
                   const wordsPerSecond = 4.5; // Reading speed
-                  const wordDuration = 2 / wordsPerSecond;
+                  const wordDuration = 1 / wordsPerSecond;
                   const startDelay = accumulatedDelay;
 
                   // Update accumulated delay: duration of this paragraph + 1.5s pause
-                  accumulatedDelay += (words.length * wordDuration) + 1.5;
+                  accumulatedDelay += (words.length * wordDuration) + 0.1;
 
                   return (
                     <motion.p
