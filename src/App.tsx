@@ -164,7 +164,7 @@ const App: React.FC = () => {
                   <Heart className="w-24 h-24 text-pink-500 mx-auto fill-pink-500 drop-shadow-lg" />
                 </motion.div>
                 <h1 className="text-5xl font-serif font-bold text-gray-800 mb-6">Double Celebration</h1>
-                <p className="text-xl text-gray-500 mb-10 italic">Maya & Mia's special day has officially arrived. Ready for the surprise?</p>
+                <p className="text-xl text-gray-500 mb-10 italic">Georgina & Josephine's special day has officially arrived. Ready for the surprise?</p>
                 <button 
                   onClick={(e) => { e.stopPropagation(); startCelebration(); }}
                   className="px-12 py-5 bg-gradient-to-r from-yellow-400 to-pink-400 text-white rounded-full font-bold shadow-[0_20px_40px_rgba(255,105,180,0.3)] hover:shadow-pink-400/50 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 mx-auto text-lg"
@@ -198,9 +198,9 @@ const App: React.FC = () => {
         <div className="w-32 h-[1px] bg-gradient-to-r from-transparent via-gray-300 to-transparent mx-auto mb-8" />
         <p className="font-serif italic text-gray-400 text-lg">Created with infinite love for the twins who light up our world</p>
         <div className="flex justify-center items-center gap-4 mt-4">
-          <span className="font-cursive text-4xl text-amber-400">Taiwo</span>
+          <span className="font-cursive text-4xl text-amber-400">Georgina</span>
           <Heart size={16} className="text-rose-200 fill-rose-200" />
-          <span className="font-cursive text-4xl text-pink-400">Kehinde</span>
+          <span className="font-cursive text-4xl text-pink-400">Josephine</span>
         </div>
       </footer>
     </div>
