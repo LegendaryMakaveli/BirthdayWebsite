@@ -24,8 +24,8 @@ export const BIRTHDAY_MESSAGE = `
   You are the sunshine that breaks through the clouds and the gentle bloom that colors our world. 
   Watching you grow side-by-side, sharing a bond that words can barely describe, has been our greatest joy.
   
-  Georgina, your radiant energy and infectious laughter are a constant reminder of God's light.
-  Josephine, your grace, kindness, and gentle spirit are a reflection of His peace.
+  Georgina, your radiant energy and infectious laughter and gentle nature are a constant reminder of God's light.
+  Josephine, your grace, kindness, and infectious smile and small ogba behaviour are a reflection of God's peace.
   
   Together, you are a symphony of love, a double portion of grace, and the heartbeat of our family. 
   We are eternally grateful for the memories we've made and the infinite adventures that lie ahead.
