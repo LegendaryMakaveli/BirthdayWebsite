@@ -15,3 +15,10 @@ export interface TimeRemaining {
     minutes: number;
     seconds: number;
 }
+
+export interface TriviaQuestion {
+    id: number;
+    question: string;
+    options: string[];
+    correctAnswer: string;
+}

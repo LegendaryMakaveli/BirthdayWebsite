@@ -4,7 +4,10 @@ import { motion as m, useScroll, useTransform } from 'framer-motion';
 import type { SisterProfile, PhotoData } from '../types';
 import Gallery from "../components/Gallery";
 import { Heart, Stars, Sparkles as SparklesIcon, Quote, Cloud } from 'lucide-react';
-import { PRAYER_MESSAGE } from "../constants";
+import { PRAYER_MESSAGE, MEMORY_LANE_PHOTOS } from "../constants";
+import BirthdayCake from './BirthdayCake';
+import MemoryLane from './MemoryLane';
+import TwinTrivia from './TwinTrivia';
 
 // Fix for framer-motion type issues
 const motion = m as any;
@@ -121,18 +124,42 @@ const Celebration: React.FC<CelebrationProps> = ({ sister1, sister2, message, ph
             </h2>
 
             <div className="space-y-12">
-              {paragraphs.map((paragraph, i) => (
-                <motion.p
-                  key={i}
-                  initial={{ opacity: 0, y: 40 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  transition={{ duration: 0.8, delay: i * 0.2, ease: "easeOut" }}
-                  className="text-xl md:text-3xl text-gray-600 leading-relaxed font-light text-center"
-                >
-                  {paragraph.trim()}
-                </motion.p>
-              ))}
+              {(() => {
+                let accumulatedDelay = 0;
+                return paragraphs.map((paragraph, i) => {
+                  const words = paragraph.trim().split(" ");
+                  const wordsPerSecond = 4.5; // Reading speed
+                  const wordDuration = 2 / wordsPerSecond;
+                  const startDelay = accumulatedDelay;
+
+                  // Update accumulated delay: duration of this paragraph + 1.5s pause
+                  accumulatedDelay += (words.length * wordDuration) + 1.5;
+
+                  return (
+                    <motion.p
+                      key={i}
+                      className="text-xl md:text-3xl text-gray-600 leading-relaxed font-light text-center font-serif flex flex-wrap justify-center gap-x-2"
+                    >
+                      {words.map((word, wordIndex) => (
+                        <motion.span
+                          key={wordIndex}
+                          initial={{ opacity: 0, y: 15, filter: "blur(5px)" }}
+                          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                          viewport={{ once: true, margin: "-10%" }}
+                          transition={{
+                            duration: 0.8,
+                            ease: "easeOut",
+                            delay: startDelay + (wordIndex * wordDuration)
+                          }}
+                          className="inline-block"
+                        >
+                          {word}
+                        </motion.span>
+                      ))}
+                    </motion.p>
+                  );
+                });
+              })()}
             </div>
 
             <div className="mt-20 flex flex-col md:flex-row items-center justify-center gap-12 border-t border-gray-100 pt-12">
@@ -250,6 +277,27 @@ const Celebration: React.FC<CelebrationProps> = ({ sister1, sister2, message, ph
               </motion.div>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Memory Lane Section */}
+      <MemoryLane photos={MEMORY_LANE_PHOTOS} />
+
+      {/* Trivia Game Section */}
+      <TwinTrivia />
+
+      {/* Birthday Cake Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="font-serif text-5xl text-gray-800 mb-4">Make a Wish</h2>
+            <p className="text-gray-400 uppercase tracking-widest text-sm">Blow out the candles for double the blessings</p>
+          </div>
+
+          <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24">
+            <BirthdayCake name={sister1.name} flavorColor={sister1.theme as any} />
+            <BirthdayCake name={sister2.name} flavorColor={sister2.theme as any} />
+          </div>
         </div>
       </section>
 

@@ -59,10 +59,10 @@ const App: React.FC = () => {
 
       const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
 
-      const interval: any = setInterval(function() {
+      const interval: any = setInterval(function () {
         const timeLeft = animationEnd - Date.now();
         if (timeLeft <= 0) return clearInterval(interval);
-        
+
         const particleCount = 60 * (timeLeft / duration);
         confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.4), y: Math.random() - 0.2 }, colors: ['#FFD700', '#FF69B4', '#FFFFFF'] });
         confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.6, 0.9), y: Math.random() - 0.2 }, colors: ['#FFD700', '#FF69B4', '#FFFFFF'] });
@@ -93,9 +93,9 @@ const App: React.FC = () => {
 
   const handleGlobalClick = (e: React.MouseEvent) => {
     const colors = ['text-pink-400', 'text-yellow-400', 'text-rose-400', 'text-amber-400'];
-    const newHeart = { 
-      id: Date.now() + Math.random(), 
-      x: e.clientX, 
+    const newHeart = {
+      id: Date.now() + Math.random(),
+      x: e.clientX,
       y: e.clientY,
       color: colors[Math.floor(Math.random() * colors.length)]
     };
@@ -106,12 +106,12 @@ const App: React.FC = () => {
   };
 
   return (
-    <div 
+    <div
       className="min-h-screen w-full relative overflow-x-hidden bg-white selection:bg-pink-100"
       onClick={handleGlobalClick}
     >
       <FloatingBackground />
-      
+
       {/* Interactive Sparkle Hearts */}
       <AnimatePresence>
         {extraHearts.map(heart => (
@@ -126,15 +126,17 @@ const App: React.FC = () => {
           </motion.div>
         ))}
       </AnimatePresence>
-      
+
       {/* Background audio */}
       <audio ref={audioRef} loop crossOrigin="anonymous">
-        <source src="https://cdn.pixabay.com/audio/2022/03/15/audio_1915668e27.mp3" type="audio/mpeg" />
+        {/* Custom song takes priority. If missing, falls back to the default link. */}
+        <source src="/song.mp3" type="audio/mpeg" />
+        <source src="https://raw.githubusercontent.com/ayusharma/birthday/master/hbd.mp3" type="audio/mpeg" />
       </audio>
 
       {/* Persistent Audio Control */}
       {hasStarted && (
-        <button 
+        <button
           onClick={(e) => { e.stopPropagation(); toggleMusic(); }}
           className="fixed top-8 right-8 z-[150] p-4 rounded-full glass hover:scale-110 active:scale-95 transition-all shadow-2xl border border-white/50"
         >
@@ -144,37 +146,37 @@ const App: React.FC = () => {
 
       <AnimatePresence mode="wait">
         {!hasStarted && isBirthday ? (
-           <motion.div 
+          <motion.div
             key="start-screen"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-gradient-to-br from-yellow-100/90 via-white to-pink-100/90 backdrop-blur-xl"
-           >
-              <motion.div 
-                initial={{ y: 20, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                className="text-center p-12 glass rounded-[4rem] shadow-2xl max-w-lg border-2 border-white/80"
+          >
+            <motion.div
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              className="text-center p-12 glass rounded-[4rem] shadow-2xl max-w-lg border-2 border-white/80"
+            >
+              <motion.div
+                animate={{ scale: [1, 1.15, 1], rotate: [0, 5, -5, 0] }}
+                transition={{ repeat: Infinity, duration: 3 }}
+                className="mb-10"
               >
-                <motion.div
-                  animate={{ scale: [1, 1.15, 1], rotate: [0, 5, -5, 0] }}
-                  transition={{ repeat: Infinity, duration: 3 }}
-                  className="mb-10"
-                >
-                  <Heart className="w-24 h-24 text-pink-500 mx-auto fill-pink-500 drop-shadow-lg" />
-                </motion.div>
-                <h1 className="text-5xl font-serif font-bold text-gray-800 mb-6">Double Celebration</h1>
-                <p className="text-xl text-gray-500 mb-10 italic">Georgina & Josephine's special day has officially arrived. Ready for the surprise?</p>
-                <button 
-                  onClick={(e) => { e.stopPropagation(); startCelebration(); }}
-                  className="px-12 py-5 bg-gradient-to-r from-yellow-400 to-pink-400 text-white rounded-full font-bold shadow-[0_20px_40px_rgba(255,105,180,0.3)] hover:shadow-pink-400/50 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 mx-auto text-lg"
-                >
-                  <Sparkles size={24} /> Step into the Magic
-                </button>
+                <Heart className="w-24 h-24 text-pink-500 mx-auto fill-pink-500 drop-shadow-lg" />
               </motion.div>
-           </motion.div>
+              <h1 className="text-5xl font-serif font-bold text-gray-800 mb-6">Double Celebration</h1>
+              <p className="text-xl text-gray-500 mb-10 italic">Georgina & Josephine's special day has officially arrived. Ready for the surprise?</p>
+              <button
+                onClick={(e) => { e.stopPropagation(); startCelebration(); }}
+                className="px-12 py-5 bg-gradient-to-r from-yellow-400 to-pink-400 text-white rounded-full font-bold shadow-[0_20px_40px_rgba(255,105,180,0.3)] hover:shadow-pink-400/50 hover:scale-105 active:scale-95 transition-all flex items-center gap-3 mx-auto text-lg"
+              >
+                <Sparkles size={24} /> Step into the Magic
+              </button>
+            </motion.div>
+          </motion.div>
         ) : (
-          <motion.div 
+          <motion.div
             key="main-content"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -183,10 +185,10 @@ const App: React.FC = () => {
             {!isBirthday && timeRemaining ? (
               <Countdown time={timeRemaining} sister1={SISTER_ONE} sister2={SISTER_TWO} />
             ) : (
-              <Celebration 
-                sister1={SISTER_ONE} 
-                sister2={SISTER_TWO} 
-                message={BIRTHDAY_MESSAGE} 
+              <Celebration
+                sister1={SISTER_ONE}
+                sister2={SISTER_TWO}
+                message={BIRTHDAY_MESSAGE}
                 photos={GALLERY_PHOTOS}
               />
             )}
