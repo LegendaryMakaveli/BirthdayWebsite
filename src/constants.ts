@@ -17,7 +17,7 @@ export const SISTER_TWO: SisterProfile = {
  * Format: Year-Month-DayTHour:Minute:Second
  * Note: Months are 1-12 in string format, but JS Date constructor is flexible.
  */
-export const BIRTHDAY_DATE = new Date("2026-02-09T00:00:00");
+export const BIRTHDAY_DATE = new Date("2025-02-09T00:00:00");
 
 export const BIRTHDAY_MESSAGE = `
   To our dearest Georgina and Josephine, on this sacred and beautiful day, we celebrate the divine miracle of your lives. 

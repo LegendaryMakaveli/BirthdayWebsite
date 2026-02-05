@@ -65,7 +65,7 @@ const Celebration: React.FC<CelebrationProps> = ({ sister1, sister2, message, ph
             </span>
           </h1>
 
-          <div className="flex items-center justify-center gap-8 text-5xl md:text-7xl font-serif mt-4">
+          <div className="flex flex-col md:flex-row items-center justify-center gap-2 md:gap-8 text-4xl md:text-7xl font-serif mt-4">
             <motion.span
               initial={{ x: -100, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
