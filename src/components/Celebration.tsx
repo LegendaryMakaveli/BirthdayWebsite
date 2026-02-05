@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion as m, useScroll, useTransform } from 'framer-motion';
 import type { SisterProfile, PhotoData } from '../types';
 import Gallery from "../components/Gallery";
@@ -8,6 +8,7 @@ import { PRAYER_MESSAGE, MEMORY_LANE_PHOTOS } from "../constants";
 import BirthdayCake from './BirthdayCake';
 import MemoryLane from './MemoryLane';
 import TwinTrivia from './TwinTrivia';
+import Guestbook from './Guestbook';
 
 // Fix for framer-motion type issues
 const motion = m as any;
@@ -22,6 +23,15 @@ interface CelebrationProps {
 const Celebration: React.FC<CelebrationProps> = ({ sister1, sister2, message, photos }) => {
   const { scrollYProgress } = useScroll();
   const yRange = useTransform(scrollYProgress, [0, 1], [0, -200]);
+
+  // Check if running on localhost (client-side only to avoid hydration issues)
+  const [isLocalhost, setIsLocalhost] = useState(false);
+  useEffect(() => {
+    setIsLocalhost(
+      window.location.hostname === 'localhost' ||
+      window.location.hostname === '127.0.0.1'
+    );
+  }, []);
 
   // Split message into paragraphs for staggered animation
   const paragraphs = message.split('\n\n').filter(p => p.trim() !== '');
@@ -286,20 +296,22 @@ const Celebration: React.FC<CelebrationProps> = ({ sister1, sister2, message, ph
       {/* Trivia Game Section */}
       <TwinTrivia />
 
-      {/* Birthday Cake Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="font-serif text-5xl text-gray-800 mb-4">Make a Wish</h2>
-            <p className="text-gray-400 uppercase tracking-widest text-sm">Blow out the candles for double the blessings</p>
-          </div>
+      {/* Birthday Cake Section - Only visible on localhost */}
+      {isLocalhost && (
+        <section className="py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="text-center mb-12">
+              <h2 className="font-serif text-5xl text-gray-800 mb-4">Make a Wish</h2>
+              <p className="text-gray-400 uppercase tracking-widest text-sm">Blow out the candles for double the blessings</p>
+            </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24">
-            <BirthdayCake name={sister1.name} flavorColor={sister1.theme as any} />
-            <BirthdayCake name={sister2.name} flavorColor={sister2.theme as any} />
+            <div className="flex flex-col md:flex-row items-center justify-center gap-12 md:gap-24">
+              <BirthdayCake name={sister1.name} flavorColor={sister1.theme as any} />
+              <BirthdayCake name={sister2.name} flavorColor={sister2.theme as any} />
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Photo Gallery Section */}
       <section className="py-40 px-6 bg-white">
@@ -312,6 +324,9 @@ const Celebration: React.FC<CelebrationProps> = ({ sister1, sister2, message, ph
           <Gallery photos={photos} />
         </div>
       </section>
+
+      {/* Guestbook Section */}
+      <Guestbook />
 
       <style>{`
         .glass-ethereal {
