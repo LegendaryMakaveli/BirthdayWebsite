@@ -17,7 +17,7 @@ export const SISTER_TWO: SisterProfile = {
  * Format: Year-Month-DayTHour:Minute:Second
  * Note: Months are 1-12 in string format, but JS Date constructor is flexible.
  */
-export const BIRTHDAY_DATE = new Date("2026-02-09T00:00:00");
+export const BIRTHDAY_DATE = new Date("2025-02-09T00:00:00");
 
 export const BIRTHDAY_MESSAGE = `
   To our dearest Georgina and Josephine, on this sacred and beautiful day, we celebrate the divine miracle of your lives. 
@@ -41,12 +41,12 @@ export const PRAYER_MESSAGE = `
 `;
 
 export const GALLERY_PHOTOS: PhotoData[] = [
-  { url: "https://images.unsplash.com/photo-1518893063934-7741850d6252?auto=format&fit=crop&q=80&w=800", caption: "Sun-kissed Joy", message: "Georgina's light is as warm as a summer morning." },
-  { url: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80&w=800", caption: "Graceful Bloom", message: "Josephine's presence is a gentle breeze of kindness." },
-  { url: "https://images.unsplash.com/photo-1513151233558-d860c5398176?auto=format&fit=crop&q=80&w=800", caption: "Double Blessing", message: "Two hearts, one soul, and a lifetime of shared dreams." },
-  { url: "https://images.unsplash.com/photo-1530103043960-ef38714abb15?auto=format&fit=crop&q=80&w=800", caption: "Eternal Partners", message: "The best thing about having a twin is having a forever best friend." },
-  { url: "https://images.unsplash.com/photo-1527529482837-4698179dc6ce?auto=format&fit=crop&q=80&w=800", caption: "Laughter Unlimited", message: "A house full of laughter is a house full of love." },
-  { url: "https://images.unsplash.com/photo-1516054966891-58399c6f3518?auto=format&fit=crop&q=80&w=800", caption: "Twin Sparkle", message: "Shining brighter because they shine together." },
-  { url: "https://images.unsplash.com/photo-1541532713592-79a0317b6b77?auto=format&fit=crop&q=80&w=800", caption: "Pure Magic", message: "There is a special kind of magic in being a twin." },
-  { url: "https://images.unsplash.com/photo-1496333039225-ae8d1347ba42?auto=format&fit=crop&q=80&w=800", caption: "Heaven Sent", message: "Blessed beyond measure to call you our own." }
+  { url: "/images/photo1.jpg", caption: "Sun-kissed Joy", message: "Georgina's light is as warm as a summer morning." },
+  { url: "/images/photo2.jpg", caption: "Graceful Bloom", message: "Josephine's presence is a gentle breeze of kindness." },
+  { url: "/images/photo3.jpg", caption: "Double Blessing", message: "Two hearts, one soul, and a lifetime of shared dreams." },
+  { url: "/images/photo4.jpg", caption: "Eternal Partners", message: "The best thing about having a twin is having a forever best friend." },
+  { url: "/images/photo5.jpg", caption: "Laughter Unlimited", message: "A house full of laughter is a house full of love." },
+  { url: "/images/photo6.jpg", caption: "Twin Sparkle", message: "Shining brighter because they shine together." },
+  { url: "/images/photo7.jpg", caption: "Pure Magic", message: "There is a special kind of magic in being a twin." },
+  { url: "/images/photo8.jpg", caption: "Heaven Sent", message: "Blessed beyond measure to call you our own." }
 ];
