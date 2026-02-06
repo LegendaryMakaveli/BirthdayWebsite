@@ -31,17 +31,24 @@ const Guestbook: React.FC = () => {
         );
     }, []);
 
-    // Load messages from API on mount (only on localhost)
+    // Load messages from API (only on localhost)
     useEffect(() => {
+        let isMounted = true;
+
         const loadMessages = async () => {
             if (!isLocalhost) return;
 
             try {
                 // Try to fetch from API first (for deployed site messages)
                 const response = await fetch('/api/messages');
+                if (!isMounted) return;
+
                 if (response.ok) {
                     const data = await response.json();
-                    if (data.messages && data.messages.length > 0) {
+                    if (data.messages) {
+                        // Only update if we have messages or if it's different to avoid re-renders?
+                        // React state updates bail out if value is same reference, but here it's new array.
+                        // However, for this scale, it's fine.
                         setMessages(data.messages);
                         return;
                     }
@@ -50,7 +57,7 @@ const Guestbook: React.FC = () => {
                 console.log('API not available, using localStorage');
             }
 
-            // Fallback to localStorage
+            // Fallback to localStorage if API fails (and we haven't returned yet)
             try {
                 const stored = localStorage.getItem(STORAGE_KEY);
                 if (stored) {
@@ -61,7 +68,16 @@ const Guestbook: React.FC = () => {
             }
         };
 
+        // Initial load
         loadMessages();
+
+        // Poll every 2 seconds for real-time updates
+        const intervalId = setInterval(loadMessages, 2000);
+
+        return () => {
+            isMounted = false;
+            clearInterval(intervalId);
+        };
     }, [isLocalhost]);
 
     // Save messages to localStorage whenever they change (backup)
