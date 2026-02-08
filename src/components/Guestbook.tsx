@@ -48,10 +48,11 @@ const Guestbook: React.FC = () => {
                 if (response.ok) {
                     const data = await response.json();
                     if (data.messages) {
-                        // Only update if we have messages or if it's different to avoid re-renders?
-                        // React state updates bail out if value is same reference, but here it's new array.
-                        // However, for this scale, it's fine.
-                        setMessages(data.messages);
+                        // Filter out blacklisted messages
+                        const blacklist = JSON.parse(localStorage.getItem('deleted-message-ids') || '[]');
+                        const filteredMessages = data.messages.filter((msg: GuestMessage) => !blacklist.includes(msg.id));
+
+                        setMessages(filteredMessages);
                         return;
                     }
                 }
@@ -63,7 +64,10 @@ const Guestbook: React.FC = () => {
             try {
                 const stored = localStorage.getItem(STORAGE_KEY);
                 if (stored) {
-                    setMessages(JSON.parse(stored));
+                    // Also filter stored messages just in case
+                    const blacklist = JSON.parse(localStorage.getItem('deleted-message-ids') || '[]');
+                    const parsedMessages = JSON.parse(stored);
+                    setMessages(parsedMessages.filter((msg: GuestMessage) => !blacklist.includes(msg.id)));
                 }
             } catch (error) {
                 console.error('Error loading messages:', error);
@@ -84,9 +88,8 @@ const Guestbook: React.FC = () => {
 
     // Save messages to localStorage whenever they change (backup)
     useEffect(() => {
-        if (messages.length > 0) {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
-        }
+        // Always save, even if empty, to ensure deletions persist locally
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
     }, [messages]);
 
     const triggerCelebration = () => {
@@ -103,6 +106,17 @@ const Guestbook: React.FC = () => {
 
         // Optimistically remove from local state immediately
         setMessages(prev => prev.filter(msg => msg.id !== id));
+
+        // Add to deleted blacklist in localStorage to prevent reappearance during polling
+        try {
+            const blacklist = JSON.parse(localStorage.getItem('deleted-message-ids') || '[]');
+            if (!blacklist.includes(id)) {
+                blacklist.push(id);
+                localStorage.setItem('deleted-message-ids', JSON.stringify(blacklist));
+            }
+        } catch (e) {
+            console.error('Error updating blacklist', e);
+        }
 
         try {
             const response = await fetch(`/api/messages?id=${id}`, {
@@ -188,6 +202,7 @@ const Guestbook: React.FC = () => {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
+                    id: newMessage.id,
                     name: newMessage.name,
                     message: newMessage.message,
                     image: newMessage.image
