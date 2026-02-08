@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion as m, AnimatePresence } from 'framer-motion';
-import { Heart, Send, MessageCircle, Sparkles, User, Trash2 } from 'lucide-react';
+import { Heart, Send, MessageCircle, Sparkles, User, Trash2, Image as ImageIcon, X } from 'lucide-react';
 import confetti from 'canvas-confetti';
 
 // Fix for framer-motion type issues
@@ -11,6 +11,7 @@ interface GuestMessage {
     name: string;
     message: string;
     timestamp: number;
+    image?: string;
 }
 
 const STORAGE_KEY = 'birthday-guestbook-messages';
@@ -19,6 +20,7 @@ const Guestbook: React.FC = () => {
     const [messages, setMessages] = useState<GuestMessage[]>([]);
     const [name, setName] = useState('');
     const [message, setMessage] = useState('');
+    const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [showSuccess, setShowSuccess] = useState(false);
 
@@ -116,6 +118,24 @@ const Guestbook: React.FC = () => {
         }
     };
 
+    const handleImageSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        // Check file size (limit to 1MB)
+        if (file.size > 1024 * 1024) {
+            alert('Image size must be less than 1MB');
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const base64String = reader.result as string;
+            setSelectedImage(base64String);
+        };
+        reader.readAsDataURL(file);
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
@@ -127,6 +147,7 @@ const Guestbook: React.FC = () => {
             id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
             name: name.trim(),
             message: message.trim(),
+            image: selectedImage || undefined,
             timestamp: Date.now()
         };
 
@@ -135,7 +156,11 @@ const Guestbook: React.FC = () => {
             await fetch('/api/messages', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: newMessage.name, message: newMessage.message })
+                body: JSON.stringify({
+                    name: newMessage.name,
+                    message: newMessage.message,
+                    image: newMessage.image
+                })
             });
         } catch (error) {
             console.log('API save skipped:', error);
@@ -150,6 +175,7 @@ const Guestbook: React.FC = () => {
         // Reset form
         setName('');
         setMessage('');
+        setSelectedImage(null);
         setShowSuccess(true);
         setIsSubmitting(false);
 
@@ -241,6 +267,44 @@ const Guestbook: React.FC = () => {
                             </span>
                         </div>
 
+                        {/* Image Upload */}
+                        <div className="relative">
+                            <input
+                                type="file"
+                                accept="image/*"
+                                onChange={handleImageSelect}
+                                className="hidden"
+                                id="image-upload"
+                            />
+
+                            {!selectedImage ? (
+                                <motion.label
+                                    htmlFor="image-upload"
+                                    whileHover={{ scale: 1.01 }}
+                                    whileTap={{ scale: 0.99 }}
+                                    className="cursor-pointer flex items-center justify-center gap-2 w-full py-3 bg-white/50 border border-dashed border-gray-300 rounded-2xl text-gray-500 hover:bg-white/80 transition-all"
+                                >
+                                    <ImageIcon className="w-5 h-5" />
+                                    <span>Attach a photo or screenshot (Trivia score?)</span>
+                                </motion.label>
+                            ) : (
+                                <div className="relative inline-block">
+                                    <img
+                                        src={selectedImage}
+                                        alt="Selected preview"
+                                        className="h-32 rounded-xl object-cover border border-gray-200 shadow-sm"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setSelectedImage(null)}
+                                        className="absolute -top-2 -right-2 bg-red-500 text-white p-1 rounded-full shadow-md hover:bg-red-600 transition-colors"
+                                    >
+                                        <X className="w-4 h-4" />
+                                    </button>
+                                </div>
+                            )}
+                        </div>
+
                         {/* Submit Button */}
                         <motion.button
                             type="submit"
@@ -301,7 +365,7 @@ const Guestbook: React.FC = () => {
                                         animate={{ opacity: 1, y: 0, scale: 1 }}
                                         exit={{ opacity: 0, scale: 0.95 }}
                                         transition={{ delay: index * 0.1 }}
-                                        className="glass p-6 rounded-2xl border border-white/50 hover:shadow-lg transition-shadow group"
+                                        className="glass p-6 rounded-2xl border border-white/50 hover:shadow-lg transition-shadow group break-inside-avoid"
                                     >
                                         <div className="flex items-start gap-4">
                                             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-200 to-pink-200 flex items-center justify-center flex-shrink-0">
@@ -318,9 +382,20 @@ const Guestbook: React.FC = () => {
                                                         {formatDate(msg.timestamp)}
                                                     </span>
                                                 </div>
-                                                <p className="text-gray-600 font-light text-sm leading-relaxed">
+                                                <p className="text-gray-600 font-light text-sm leading-relaxed whitespace-pre-wrap mb-3">
                                                     {msg.message}
                                                 </p>
+
+                                                {msg.image && (
+                                                    <div className="mt-3 rounded-lg overflow-hidden border border-gray-100 shadow-sm">
+                                                        <img
+                                                            src={msg.image}
+                                                            alt={`Message attachment from ${msg.name}`}
+                                                            loading="lazy"
+                                                            className="w-full h-auto max-h-60 object-cover hover:scale-105 transition-transform duration-500"
+                                                        />
+                                                    </div>
+                                                )}
                                             </div>
                                             <button
                                                 onClick={() => handleDelete(msg.id)}
