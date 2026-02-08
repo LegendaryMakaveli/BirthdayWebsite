@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Check, X, Trophy, Brain } from 'lucide-react';
 import { TRIVIA_QUESTIONS } from '../constants';
@@ -11,6 +11,16 @@ const TwinTrivia: React.FC = () => {
     const [selectedOption, setSelectedOption] = useState<string | null>(null);
     const [isAnswered, setIsAnswered] = useState(false);
 
+    useEffect(() => {
+        const completed = localStorage.getItem('triviaCompleted');
+        const savedScore = localStorage.getItem('triviaScore');
+
+        if (completed === 'true' && savedScore) {
+            setScore(parseInt(savedScore, 10));
+            setShowResult(true);
+        }
+    }, []);
+
     const currentQuestion = TRIVIA_QUESTIONS[currentQuestionIndex];
 
     const handleOptionClick = (option: string) => {
@@ -19,7 +29,10 @@ const TwinTrivia: React.FC = () => {
         setSelectedOption(option);
         setIsAnswered(true);
 
-        if (option === currentQuestion.correctAnswer) {
+        const isCorrect = option === currentQuestion.correctAnswer;
+        const newScore = isCorrect ? score + 1 : score;
+
+        if (isCorrect) {
             setScore(prev => prev + 1);
         }
 
@@ -29,17 +42,15 @@ const TwinTrivia: React.FC = () => {
                 setSelectedOption(null);
                 setIsAnswered(false);
             } else {
-                setShowResult(true);
+                finishGame(newScore);
             }
         }, 1500);
     };
 
-    const restartGame = () => {
-        setScore(0);
-        setCurrentQuestionIndex(0);
-        setShowResult(false);
-        setSelectedOption(null);
-        setIsAnswered(false);
+    const finishGame = (finalScore: number) => {
+        setShowResult(true);
+        localStorage.setItem('triviaCompleted', 'true');
+        localStorage.setItem('triviaScore', finalScore.toString());
     };
 
     return (
@@ -85,12 +96,9 @@ const TwinTrivia: React.FC = () => {
                                         : "Time to spend more time with them! 😂"}
                             </p>
 
-                            <button
-                                onClick={restartGame}
-                                className="px-8 py-4 bg-purple-500 text-white rounded-xl font-bold hover:bg-purple-600 transition-colors shadow-lg hover:shadow-purple-500/30"
-                            >
-                                Play Again
-                            </button>
+                            <div className="text-gray-400 text-sm">
+                                You've already played this game. Thanks for participating!
+                            </div>
                         </motion.div>
                     ) : (
                         <motion.div
