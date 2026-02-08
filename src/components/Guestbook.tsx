@@ -122,9 +122,9 @@ const Guestbook: React.FC = () => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        // Check file size (limit to 1MB)
-        if (file.size > 1024 * 1024) {
-            alert('Image size must be less than 1MB');
+        // Check file size (limit to 5MB)
+        if (file.size > 5 * 1024 * 1024) {
+            alert('Image size must be less than 5MB');
             return;
         }
 
