@@ -17,7 +17,7 @@ export const SISTER_TWO: SisterProfile = {
  * Format: Year-Month-DayTHour:Minute:Second
  * Note: Months are 1-12 in string format, but JS Date constructor is flexible.
  */
-export const BIRTHDAY_DATE = new Date("2026-02-09T00:00:00");
+export const BIRTHDAY_DATE = new Date("2025-02-09T00:00:00");
 
 export const BIRTHDAY_MESSAGE = `
   To our dearest Georgina and Josephine, on this sacred and beautiful day, we celebrate the divine miracle of your lives. 
@@ -91,7 +91,7 @@ export const TRIVIA_QUESTIONS: import('./types').TriviaQuestion[] = [
     id: 4,
     question: "Who is more likely to be late?",
     options: ["Taiwo", "Kehinde", "African Time Affects Both"],
-    correctAnswer: "Kehinde"
+    correctAnswer: "Taiwo"
   },
   {
     id: 5,
@@ -103,13 +103,13 @@ export const TRIVIA_QUESTIONS: import('./types').TriviaQuestion[] = [
     id: 6,
     question: "Who is the best at cooking?",
     options: ["Taiwo", "Kehinde", "Both are good at cooking"],
-    correctAnswer: "Kehinde"
+    correctAnswer: "Taiwo"
   },
   {
     id: 7,
     question: "Who is best at dancing?",
     options: ["Kehinde", "Taiwo", "Both are good dancers"],
-    correctAnswer: "Taiwo"
+    correctAnswer: "Kehinde"
   },
   {
     id: 8,
@@ -131,6 +131,60 @@ export const TRIVIA_QUESTIONS: import('./types').TriviaQuestion[] = [
   },
   {
     id: 11,
+    question: "What is Kehinde's favorite color?",
+    options: ["Red", "Yellow", "Pink"],
+    correctAnswer: "Yellow"
+  },
+  {
+    id: 12,
+    question: "Who is more likely to go on trance",
+    options: ["Taiwo", "Kehinde", "Both of them"],
+    correctAnswer: "Taiwo"
+  },
+  {
+    id: 13,
+    question: "Who is more likely to cry during an argument?",
+    options: ["Both of them", "Kehinde", "Taiwo"],
+    correctAnswer: "Yellow"
+  },
+  {
+    id: 14,
+    question: "What is Kehinde's favorite color?",
+    options: ["Red", "Yellow", "Pink"],
+    correctAnswer: "Yellow"
+  },
+  {
+    id: 15,
+    question: "What is Kehinde's favorite color?",
+    options: ["Red", "Yellow", "Pink"],
+    correctAnswer: "Yellow"
+  },
+  {
+    id: 16,
+    question: "What is Kehinde's favorite color?",
+    options: ["Red", "Yellow", "Pink"],
+    correctAnswer: "Yellow"
+  },
+  {
+    id: 17,
+    question: "What is Kehinde's favorite color?",
+    options: ["Red", "Yellow", "Pink"],
+    correctAnswer: "Yellow"
+  },
+  {
+    id: 18,
+    question: "What is Kehinde's favorite color?",
+    options: ["Red", "Yellow", "Pink"],
+    correctAnswer: "Yellow"
+  },
+  {
+    id: 19,
+    question: "What is Kehinde's favorite color?",
+    options: ["Red", "Yellow", "Pink"],
+    correctAnswer: "Yellow"
+  },
+  {
+    id: 20,
     question: "What is Kehinde's favorite color?",
     options: ["Red", "Yellow", "Pink"],
     correctAnswer: "Yellow"
