@@ -17,7 +17,7 @@ export const SISTER_TWO: SisterProfile = {
  * Format: Year, Month (0-11), Day, Hour, Minute, Second
  * Note: Month is 0-indexed (0 = Jan, 1 = Feb, etc.)
  */
-export const BIRTHDAY_DATE = new Date(2026, 1, 9, 0, 0, 0);
+export const BIRTHDAY_DATE = new Date(2025, 1, 9, 0, 0, 0);
 
 export const BIRTHDAY_MESSAGE = `
   To our dearest Georgina and Josephine, on this sacred and beautiful day, we celebrate the divine miracle of your lives. 
