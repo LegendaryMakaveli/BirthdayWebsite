@@ -35,14 +35,14 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         // POST - Add a new message
         if (req.method === 'POST') {
-            const { name, message, image } = req.body;
+            const { id, name, message, image } = req.body;
 
             if (!name || !message) {
                 return res.status(400).json({ error: 'Name and message are required' });
             }
 
             const newMessage: GuestMessage = {
-                id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+                id: id || `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
                 name: name.trim(),
                 message: message.trim(),
                 image: image || undefined,
