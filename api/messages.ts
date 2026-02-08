@@ -9,6 +9,7 @@ interface GuestMessage {
     name: string;
     message: string;
     timestamp: number;
+    image?: string;
 }
 
 // In-memory storage (persists between requests but resets on redeploy)
@@ -34,7 +35,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
         // POST - Add a new message
         if (req.method === 'POST') {
-            const { name, message } = req.body;
+            const { name, message, image } = req.body;
 
             if (!name || !message) {
                 return res.status(400).json({ error: 'Name and message are required' });
@@ -44,6 +45,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
                 id: `${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
                 name: name.trim(),
                 message: message.trim(),
+                image: image || undefined,
                 timestamp: Date.now()
             };
 
