@@ -122,16 +122,47 @@ const Guestbook: React.FC = () => {
         const file = e.target.files?.[0];
         if (!file) return;
 
-        // Check file size (limit to 5MB)
-        if (file.size > 5 * 1024 * 1024) {
-            alert('Image size must be less than 5MB');
+        // Check file size (limit to 10MB input, but we will compress)
+        if (file.size > 10 * 1024 * 1024) {
+            alert('Image size must be less than 10MB');
             return;
         }
 
         const reader = new FileReader();
-        reader.onloadend = () => {
-            const base64String = reader.result as string;
-            setSelectedImage(base64String);
+        reader.onload = (event) => {
+            const img = new Image();
+            img.onload = () => {
+                const canvas = document.createElement('canvas');
+                let width = img.width;
+                let height = img.height;
+
+                // Max dimensions
+                const MAX_WIDTH = 1200;
+                const MAX_HEIGHT = 1200;
+
+                if (width > height) {
+                    if (width > MAX_WIDTH) {
+                        height *= MAX_WIDTH / width;
+                        width = MAX_WIDTH;
+                    }
+                } else {
+                    if (height > MAX_HEIGHT) {
+                        width *= MAX_HEIGHT / height;
+                        height = MAX_HEIGHT;
+                    }
+                }
+
+                canvas.width = width;
+                canvas.height = height;
+
+                const ctx = canvas.getContext('2d');
+                ctx?.drawImage(img, 0, 0, width, height);
+
+                // Compress to JPEG with 0.7 quality
+                const compressedBase64 = canvas.toDataURL('image/jpeg', 0.7);
+                setSelectedImage(compressedBase64);
+            };
+            img.src = event.target?.result as string;
         };
         reader.readAsDataURL(file);
     };
@@ -388,12 +419,27 @@ const Guestbook: React.FC = () => {
 
                                                 {msg.image && (
                                                     <div className="mt-3 rounded-lg overflow-hidden border border-gray-100 shadow-sm">
+                                                        {/* Debug info */}
+                                                        {isLocalhost && (
+                                                            <div className="text-xs text-red-500 mb-1">
+                                                                Image size: {Math.round(msg.image.length / 1024)}KB
+                                                            </div>
+                                                        )}
                                                         <img
                                                             src={msg.image}
                                                             alt={`Message attachment from ${msg.name}`}
                                                             loading="lazy"
                                                             className="w-full h-auto max-h-60 object-cover hover:scale-105 transition-transform duration-500"
+                                                            onError={(e) => {
+                                                                console.error("Image load error:", e);
+                                                                e.currentTarget.style.display = 'none';
+                                                            }}
                                                         />
+                                                    </div>
+                                                )}
+                                                {!msg.image && isLocalhost && (
+                                                    <div className="text-xs text-gray-400 mt-1 italic">
+                                                        No image data found
                                                     </div>
                                                 )}
                                             </div>
