@@ -14,10 +14,10 @@ export const SISTER_TWO: SisterProfile = {
 
 /**
  * SET THE BIRTHDAY DATE HERE
- * Format: Year-Month-DayTHour:Minute:Second
- * Note: Months are 1-12 in string format, but JS Date constructor is flexible.
+ * Format: Year, Month (0-11), Day, Hour, Minute, Second
+ * Note: Month is 0-indexed (0 = Jan, 1 = Feb, etc.)
  */
-export const BIRTHDAY_DATE = new Date("2026-02-09T00:00:00");
+export const BIRTHDAY_DATE = new Date(2026, 1, 9, 0, 0, 0);
 
 export const BIRTHDAY_MESSAGE = `
   To our dearest Georgina and Josephine, on this sacred and beautiful day, we celebrate the divine miracle of your lives. 
@@ -145,48 +145,48 @@ export const TRIVIA_QUESTIONS: import('./types').TriviaQuestion[] = [
     id: 13,
     question: "Who is more likely to cry during an argument?",
     options: ["Both of them", "Kehinde", "Taiwo"],
-    correctAnswer: "Yellow"
+    correctAnswer: "Kehinde"
   },
   {
     id: 14,
-    question: "What is Kehinde's favorite color?",
-    options: ["Red", "Yellow", "Pink"],
-    correctAnswer: "Yellow"
+    question: "Who is more likely to get angry during an argument?",
+    options: ["Taiwo", "Kehinde", "Both of them"],
+    correctAnswer: "Kehinde"
   },
   {
     id: 15,
-    question: "What is Kehinde's favorite color?",
-    options: ["Red", "Yellow", "Pink"],
-    correctAnswer: "Yellow"
+    question: "Who is more likely to apologize during an argument?",
+    options: ["Taiwo", "Kehinde", "None of them"],
+    correctAnswer: "None of them"
   },
   {
     id: 16,
-    question: "What is Kehinde's favorite color?",
-    options: ["Red", "Yellow", "Pink"],
-    correctAnswer: "Yellow"
+    question: "Who is taller?",
+    options: ["Taiwo", "Kehinde", "Both are the same height"],
+    correctAnswer: "Kehinde"
   },
   {
     id: 17,
-    question: "What is Kehinde's favorite color?",
-    options: ["Red", "Yellow", "Pink"],
-    correctAnswer: "Yellow"
+    question: "What is their favorite food?",
+    options: ["Swallow/bread", "bread/noodles", "Swallow/beans"],
+    correctAnswer: "Swallow/bread"
   },
   {
     id: 18,
-    question: "What is Kehinde's favorite color?",
-    options: ["Red", "Yellow", "Pink"],
-    correctAnswer: "Yellow"
+    question: "Who is more likely to be lazy?",
+    options: ["Taiwo", "Kehinde", "Both of them"],
+    correctAnswer: "Kehinde"
   },
   {
     id: 19,
-    question: "What is Kehinde's favorite color?",
-    options: ["Red", "Yellow", "Pink"],
-    correctAnswer: "Yellow"
+    question: "Who is more likely to wake up early?",
+    options: ["Tawio", "Kehinde", "NOne of them"],
+    correctAnswer: "Tawio"
   },
   {
     id: 20,
-    question: "What is Kehinde's favorite color?",
-    options: ["Red", "Yellow", "Pink"],
-    correctAnswer: "Yellow"
+    question: "Can twins have different birthday?",
+    options: ["Yes", "No", "Maybe"],
+    correctAnswer: "Yes"
   },
 ];
